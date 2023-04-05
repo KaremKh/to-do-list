@@ -4,6 +4,23 @@ import deleteIcon from "../images/delete.png";
 import task from "./task";
 
 const dom = (() =>{
+
+    function loadInitialPage(){
+        const contentContainer = document.createElement('div');
+        contentContainer.classList.add('content');
+        const headerContainer = document.createElement('div');
+        headerContainer.classList.add('header');
+        const projectsContainer = document.createElement('div');
+        projectsContainer.classList.add('projects');
+        const tasksContainer = document.createElement('div');
+        tasksContainer.classList.add('tasks');
+        
+        contentContainer.appendChild(headerContainer);
+        contentContainer.appendChild(projectsContainer);
+        contentContainer.appendChild(tasksContainer);
+
+        document.body.appendChild(contentContainer);
+    }
     function showProjects(){
         const projectContainer = document.querySelector('projects');
         for (let i = 0; i < project.projectList.length; i++){
@@ -38,7 +55,8 @@ const dom = (() =>{
     return {
         showProjects,
         showProjectsTasks,
-        showAllTasks
+        showAllTasks,
+        loadInitialPage
     }
 })();
 

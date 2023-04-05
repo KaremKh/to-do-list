@@ -9,4 +9,5 @@ task.addTask('Collect Materials', 'Go through journal papers and find notes', '1
 
 console.log(project.projectList);
 
+dom.loadInitialPage();
 dom.showProjects();
