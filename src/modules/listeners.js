@@ -30,6 +30,13 @@ const listeners = (() => {
             projectModal.style.display = 'none';
         })
 
+        const form = document.querySelector('.project-form');
+        console.log(form);
+        form.addEventListener("submit", function(event) {
+            project.getProjectData(event);
+            projectModal.style.display = 'none';
+          });
+
 
     }
 

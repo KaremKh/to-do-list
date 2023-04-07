@@ -58,17 +58,22 @@ const project = (() => {
   function addProject(title, description) {
     const project = new Project(title, description);
     projectList.push(project);
-    // dom.showProjects();
+    
 
 
   }
 
-  function getProjectData(){
+  function getProjectData(event){
+    event.preventDefault();
     console.log('a');
     let form = document.querySelector('.project-form');
     let title = document.getElementById('project-title').value;
     let description = document.getElementById('project-description').value;
+    form.reset();
     addProject(title,description);
+    console.log(projectList);
+    dom.showProjects();
+    return false;
   }
 
   function deleteProject(index){

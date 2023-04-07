@@ -17,7 +17,7 @@ const dom = (() =>{
         addProject.classList.add('addproject-box');
         addProject.innerHTML=`<div class="modal-content">
         <h2>Add Project</h2>
-        <form class="project-form" onsubmit="project.getProjectData()">
+        <form class="project-form">
           <label for="project-title">Title:</label>
           <input type="text" id="project-title" name="project-title">
           <br>
@@ -28,6 +28,7 @@ const dom = (() =>{
           <button type="button" class="cancel-btn">Cancel</button>
         </form>
       </div>`;
+      
         const tasksContainer = document.createElement('div');
         tasksContainer.classList.add('tasks');
         
