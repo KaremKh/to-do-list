@@ -1,4 +1,4 @@
-
+import dom from "./dom";
 
 const project = (() => {
 
@@ -31,6 +31,20 @@ const project = (() => {
         }
       ]
     },
+    {
+      description: 'fa-tools',
+      title: 'Craft New Project',
+      tasks: [
+        {
+          title: 'Enjoy my tea as much as my coding! 🍵',
+          description: 'Longer description of my demo task, just to show you this surprisingly nice scrollbar and amazingly cute kitty ฅ(^◉ᴥ◉^)ฅ',
+          date: '2011-11-11',
+          priority: 'low',
+          projectIndex: 0,
+          completed: false
+        }
+      ]
+    },
   ];
 
   class Project {
@@ -49,17 +63,25 @@ const project = (() => {
 
   }
 
+  function getProjectData(){
+    console.log('a');
+    let form = document.querySelector('.project-form');
+    let title = document.getElementById('project-title').value;
+    let description = document.getElementById('project-description').value;
+    addProject(title,description);
+  }
+
   function deleteProject(index){
     if (index>=0) {
       projectList.splice(index, 1);
     }
-    // dom.showProjects();
+    dom.showProjects();
   }
 
   function editProject(title, description, index){
     projectList[index].title = title;
     projectList[index.description] = description;
-    // dom.showProjects();
+    dom.showProjects();
 
   }
 
@@ -67,7 +89,8 @@ const project = (() => {
     projectList,
     addProject,
     deleteProject,
-    editProject
+    editProject,
+    getProjectData
   }
     
   })();
