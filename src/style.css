@@ -57,7 +57,7 @@ body {
     width: 200px;
 }
 
-.addproject-box {
+.addproject-box, .editproject-box {
     display: none;
     position: fixed;
     z-index: 1;

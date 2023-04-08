@@ -65,12 +65,26 @@ const project = (() => {
 
   function getProjectData(event){
     event.preventDefault();
-    console.log('a');
+
     let form = document.querySelector('.project-form');
     let title = document.getElementById('project-title').value;
     let description = document.getElementById('project-description').value;
     form.reset();
     addProject(title,description);
+    console.log(projectList);
+    dom.showProjects();
+    return false;
+  }
+
+  function editProjectData(event){
+    event.preventDefault();
+
+    let form = document.querySelector('.editproject-form');
+    let title = document.getElementById('editproject-title').value;
+    let description = document.getElementById('editproject-description').value;
+    let index = document.getElementById('project-id').value;
+    form.reset();
+    editProject(title,description, index);
     console.log(projectList);
     dom.showProjects();
     return false;
@@ -86,7 +100,6 @@ const project = (() => {
   function editProject(title, description, index){
     projectList[index].title = title;
     projectList[index.description] = description;
-    dom.showProjects();
 
   }
 
@@ -95,7 +108,8 @@ const project = (() => {
     addProject,
     deleteProject,
     editProject,
-    getProjectData
+    getProjectData,
+    editProjectData
   }
     
   })();

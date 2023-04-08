@@ -28,7 +28,22 @@ const dom = (() =>{
           <button type="button" class="cancel-btn">Cancel</button>
         </form>
       </div>`;
-      
+      const editProject = document.createElement('div');
+      editProject.classList.add('editproject-box');
+        editProject.innerHTML=`<div class="modal-content">
+        <h2>Edit Project</h2>
+        <form class="editproject-form">
+          <label for="editproject-title">Title:</label>
+          <input type="text" id="editproject-title" name="editproject-title">
+          <br>
+          <label for="editproject-description">Description:</label>
+          <textarea id="editproject-description" name="editproject-description"></textarea>
+          <br>
+          <input type="hidden" id="project-id" name="project-id">
+          <button type="submit">Update Project</button>
+          <button type="button" class="cancel-btn">Cancel</button>
+        </form>
+      </div>`;
         const tasksContainer = document.createElement('div');
         tasksContainer.classList.add('tasks');
         
@@ -36,6 +51,7 @@ const dom = (() =>{
         contentContainer.appendChild(projectsContainer);
         contentContainer.appendChild(tasksContainer);
         contentContainer.appendChild(addProject);
+        contentContainer.appendChild(editProject);
 
         document.body.appendChild(contentContainer);
     }
