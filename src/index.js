@@ -11,4 +11,7 @@ task.addTask('Collect Materials', 'Go through journal papers and find notes', '1
 
 
 dom.loadInitialPage();
+
 dom.showProjects();
+listeners.initialListeners();
+dom.showProjectTasks(dom.currentProject);

@@ -6,6 +6,7 @@ import listeners from "./listeners";
 
 const dom = (() =>{
 
+  let currentProject = 3;
     function loadInitialPage(){
         const contentContainer = document.createElement('div');
         contentContainer.classList.add('content');
@@ -94,8 +95,64 @@ const dom = (() =>{
 
     }
 
-    function showProjectsTasks(projectIndex){
-
+    function showProjectTasks(index){
+      
+        const selectedProject = project.projectList[index];
+        const projectTitle = selectedProject.title;
+        const projectDescription = selectedProject.description;
+        const tasks = selectedProject.tasks;
+      
+        // Select the tasks section element
+        const tasksSection = document.querySelector('.tasks');
+      
+        // Clear the tasks section element's contents
+        tasksSection.innerHTML = '';
+      
+        // Create a title element for the project
+        const titleElement = document.createElement('h2');
+        titleElement.textContent = projectTitle;
+      
+        // Create a description element for the project
+        const descriptionElement = document.createElement('p');
+        descriptionElement.textContent = projectDescription;
+      
+        // Append the title and description elements to the tasks section
+        tasksSection.appendChild(titleElement);
+        tasksSection.appendChild(descriptionElement);
+      
+        // Create an unordered list element for the tasks
+        const tasksList = document.createElement('ul');
+      
+        // Loop through each task and create a list item element for it
+        tasks.forEach(task => {
+          // Create a list item element for the task
+          const taskListItem = document.createElement('li');
+      
+          // Create a title element for the task
+          const taskTitle = document.createElement('h3');
+          taskTitle.textContent = task.title;
+      
+          // Create a description element for the task
+          const taskDescription = document.createElement('p');
+          taskDescription.textContent = task.description;
+      
+          // Create a date element for the task
+          const taskDate = document.createElement('p');
+          taskDate.textContent = task.date;
+      
+          // Append the title, description, and date elements to the task list item
+          taskListItem.appendChild(taskTitle);
+          taskListItem.appendChild(taskDescription);
+          taskListItem.appendChild(taskDate);
+      
+          // Append the task list item to the tasks list
+          tasksList.appendChild(taskListItem);
+        });
+      
+        // Append the tasks list to the tasks section
+        tasksSection.appendChild(tasksList);
+      
+      
     }
 
     function showAllTasks(){
@@ -103,8 +160,9 @@ const dom = (() =>{
     }
 
     return {
+        currentProject,
         showProjects,
-        showProjectsTasks,
+        showProjectTasks,
         showAllTasks,
         loadInitialPage,
         loadEditProject 
