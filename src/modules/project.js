@@ -99,7 +99,7 @@ const project = (() => {
 
   function editProject(title, description, index){
     projectList[index].title = title;
-    projectList[index.description] = description;
+    projectList[index].description = description;
 
   }
 
