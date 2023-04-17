@@ -1,5 +1,6 @@
 import project from "./project";
 import dom from "./dom";
+import { isPast, parseISO, formatDistance } from 'date-fns';
 
 const task = (() => {
 
@@ -22,20 +23,40 @@ const task = (() => {
     
     }
 
-    function getTaskData(event){
-      event.preventDefault();
+
+
+function getTaskData(event) {
+  event.preventDefault();
+
+  let form = document.querySelector('.task-form');
+  let title = document.getElementById('task-title').value;
+  let description = document.getElementById('task-description').value;
+  let dueDate = new Date(document.getElementById('task-date').value).toISOString();
+  let priority = document.getElementById('task-priority').value;
+
+  const parsedDueDate = parseISO(dueDate); // parse the due date string to a Date object
+
+  const isOverdue = isPast(parsedDueDate); // check if the due date is in the past
+
+
+  let relativeDueDate;
+
+  if (isOverdue) {
+    relativeDueDate = 'This task is overdue!';
+  } else {
+    relativeDueDate = 'Due in ' + formatDistance(parsedDueDate, new Date(), { addSuffix: true });
+  }
+
+  // Format the dueDate as a relative time string using formatDistance
   
-      let form = document.querySelector('.task-form');
-      let title = document.getElementById('task-title').value;
-      let description = document.getElementById('task-description').value;
-      let dueDate = document.getElementById('task-date').value;
-      let priority = document.getElementById('task-priority').value;
-      form.reset();
-      addTask(title,description, dueDate, priority, dom.currentProject);
-      console.log(project.projectList);
-      dom.showProjectTasks(dom.currentProject);
-      return false;
-    }
+  console.log(relativeDueDate);
+
+  form.reset();
+  addTask(title, description, relativeDueDate, priority, dom.currentProject);
+  console.log(project.projectList);
+  dom.showProjectTasks(dom.currentProject);
+  return false;
+}
 
     function editTaskData(event){
       event.preventDefault();
@@ -43,11 +64,27 @@ const task = (() => {
       let form = document.querySelector('.edittask-form');
       let title = document.getElementById('edittask-title').value;
       let description = document.getElementById('edittask-description').value;
-      let dueDate = document.getElementById('edittask-date').value;
+      let dueDate = new Date(document.getElementById('edittask-date').value).toISOString();
+      console.log(dueDate);
       let priority = document.getElementById('edittask-priority').value;
       let index = document.getElementById('task-id').value;
+
+      const parsedDueDate = parseISO(dueDate); // parse the due date string to a Date object
+
+      const isOverdue = isPast(parsedDueDate); // check if the due date is in the past
+    
+    
+      let relativeDueDate;
+    
+      if (isOverdue) {
+        relativeDueDate = 'This task is overdue!';
+      } else {
+        relativeDueDate = 'Due in ' + formatDistance(parsedDueDate, new Date(), { addSuffix: true });
+      }
+    
+
       form.reset();
-      editTask(title,description, dueDate, priority, index);
+      editTask(title,description, relativeDueDate, priority, index);
       console.log(project.projectList);
       dom.showProjectTasks(dom.currentProject);
       return false;
@@ -64,6 +101,8 @@ const task = (() => {
       function editTask(title,description, dueDate, priority, index){
         project.projectList[dom.currentProject].tasks[index].title = title;
         project.projectList[dom.currentProject].tasks[index].description = description;
+        project.projectList[dom.currentProject].tasks[index].dueDate = dueDate;
+        project.projectList[dom.currentProject].tasks[index].priority = priority;
         console.log(project.projectList[dom.currentProject].tasks[index]);
     
       }

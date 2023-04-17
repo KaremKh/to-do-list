@@ -60,13 +60,13 @@ const dom = (() =>{
             <h2>Add Task</h2>
             <form class="task-form">
               <label for="task-title">Title:</label>
-              <input type="text" id="task-title" name="task-title">
+              <input type="text" id="task-title" name="task-title" required>
               <br>
               <label for="task-description">Description:</label>
               <textarea id="task-description" name="task-description"></textarea>
               <br>
               <label for="task-date">Date:</label>
-              <input type="date" id="task-date" name="task-date">
+              <input type="date" id="task-date" name="task-date" required>
               <br>
               <label for="task-priority">Priority:</label>
               <select id="task-priority" name="task-priority">
@@ -211,7 +211,7 @@ const dom = (() =>{
         // Create a checkbox element for the task
         const taskDone = document.createElement('input');
         taskDone.type = 'checkbox';
-        taskDone.checked = task.done;
+        taskDone.checked = task.completed;
         taskDone.classList.add('task-checkbox');
 
         // Create a container for the task title and icons
@@ -222,6 +222,11 @@ const dom = (() =>{
         const taskTitle = document.createElement('h3');
         taskTitle.textContent = task.title;
         taskTitle.classList.add('task-title');
+        if (task.completed ===true){
+          taskTitle.style.textDecoration = 'line-through';
+        }
+        else 
+          taskTitle.style.textDecoration = 'none';
 
         taskTitleContainer.appendChild(taskDone);
         taskTitleContainer.appendChild(taskTitle);
@@ -252,7 +257,7 @@ const dom = (() =>{
 
         // Create a date element for the task
         const taskDate = document.createElement('p');
-        taskDate.textContent = task.date;
+        taskDate.textContent = task.dueDate;
         taskDate.classList.add('task-date');
 
         // Create a description element for the task

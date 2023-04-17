@@ -66,7 +66,7 @@ const listeners = (() => {
             taskIndex.value = index;
             taskTitle.value = project.projectList[dom.currentProject].tasks[index].title;
             taskDescription.value = project.projectList[dom.currentProject].tasks[index].description;
-            taskDate.value = project.projectList[dom.currentProject].tasks[index].date;
+            taskDate.value = project.projectList[dom.currentProject].tasks[index].dueDate;
             taskPriority.value = project.projectList[dom.currentProject].tasks[index].priority;
             edittaskModal.style.display = 'flex';
         }));
