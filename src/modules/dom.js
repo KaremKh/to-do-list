@@ -260,6 +260,11 @@ const dom = (() =>{
         taskDate.textContent = task.dueDate;
         taskDate.classList.add('task-date');
 
+        // Create a priority element for the task
+        const taskPriority = document.createElement('p');
+        taskPriority.textContent = task.priority + ' priority';
+        taskPriority.classList.add('task-priority');
+
         // Create a description element for the task
         const taskDescription = document.createElement('p');
         taskDescription.textContent = task.description;
@@ -274,6 +279,7 @@ const dom = (() =>{
         const taskDetailsContainer = document.createElement('div');
         taskDetailsContainer.classList.add('task-details-container');
         taskDetailsContainer.appendChild(taskTitleContainer);
+        taskDetailsContainer.appendChild(taskPriority);
         taskDetailsContainer.appendChild(taskDate);
         taskDetailsContainer.appendChild(taskIconsContainer);
 

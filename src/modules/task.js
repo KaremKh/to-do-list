@@ -44,7 +44,7 @@ function getTaskData(event) {
   if (isOverdue) {
     relativeDueDate = 'This task is overdue!';
   } else {
-    relativeDueDate = 'Due in ' + formatDistance(parsedDueDate, new Date(), { addSuffix: true });
+    relativeDueDate = 'Due ' + formatDistance(parsedDueDate, new Date(), { addSuffix: true });
   }
 
   // Format the dueDate as a relative time string using formatDistance
@@ -79,7 +79,7 @@ function getTaskData(event) {
       if (isOverdue) {
         relativeDueDate = 'This task is overdue!';
       } else {
-        relativeDueDate = 'Due in ' + formatDistance(parsedDueDate, new Date(), { addSuffix: true });
+        relativeDueDate = 'Due ' + formatDistance(parsedDueDate, new Date(), { addSuffix: true });
       }
     
 
