@@ -3,7 +3,7 @@ import editIcon from "../images/edit.png"
 import deleteIcon from "../images/delete.png";
 import task from "./task";
 import listeners from "./listeners";
-
+import { isPast, parseISO, formatDistance } from 'date-fns';
 const dom = (() =>{
 
   let currentProject = 0;
@@ -18,7 +18,7 @@ const dom = (() =>{
         addProject.classList.add('addproject-box');
 
         addProject.innerHTML=`
-        <div class="modal-content">
+        <div class="modal-content project">
           <h2>Add Project</h2>
           <form class="project-form">
             <label for="project-title">Title:</label>
@@ -27,15 +27,17 @@ const dom = (() =>{
             <label for="project-description">Description:</label>
             <textarea id="project-description" name="project-description"></textarea>
             <br>
+            <div class="buttons-container">
             <button type="submit">Add Project</button>
             <button type="button" class="cancel-btn">Cancel</button>
+            </div>
           </form>
         </div>`;
 
       const editProject = document.createElement('div');
       editProject.classList.add('editproject-box');
         editProject.innerHTML=`
-        <div class="modal-content">
+        <div class="modal-content project">
           <h2>Edit Project</h2>
           <form class="editproject-form">
             <label for="editproject-title">Title:</label>
@@ -45,8 +47,10 @@ const dom = (() =>{
             <textarea id="editproject-description" name="editproject-description"></textarea>
             <br>
             <input type="hidden" id="project-id" name="project-id">
-            <button type="submit">Update Project</button>
-            <button type="button" class="cancel-btn">Cancel</button>
+            <div class="buttons-container">
+              <button type="submit">Update Project</button>
+              <button type="button" class="cancel-btn">Cancel</button>
+            </div>
           </form>
         </div>`;
 
@@ -56,7 +60,7 @@ const dom = (() =>{
         const addTaskModal = document.createElement('div');
         addTaskModal.classList.add('addtask-box');
         addTaskModal.innerHTML = `
-          <div class="modal-content">
+          <div class="modal-content task">
             <h2>Add Task</h2>
             <form class="task-form">
               <label for="task-title">Title:</label>
@@ -75,8 +79,10 @@ const dom = (() =>{
                 <option value="high">High</option>
               </select>
               <br>
-              <button type="submit">Add Task</button>
-              <button type="button" class="cancel-btn">Cancel</button>
+              <div class="buttons-container">
+                <button type="submit">Add Task</button>
+                <button type="button" class="cancel-btn">Cancel</button>
+              </div>
             </form>
           </div>
         `;
@@ -84,7 +90,7 @@ const dom = (() =>{
         const editTaskModal = document.createElement('div');
         editTaskModal.classList.add('edittask-box');
         editTaskModal.innerHTML = `
-          <div class="modal-content">
+          <div class="modal-content task" >
             <h2>Edit Task</h2>
             <form class="edittask-form">
               <label for="edittask-title">Title:</label>
@@ -104,8 +110,11 @@ const dom = (() =>{
               </select>
               <br>
               <input type="hidden" id="task-id" name="task-id">
-              <button type="submit">Update Task</button>
-              <button type="button" class="cancel-btn">Cancel</button>
+              <div class="buttons-container">
+                <button type="submit">Update Task</button>
+                <button type="button" class="cancel-btn">Cancel</button>
+              </div>
+              
             </form>
           </div>
         `;
@@ -257,7 +266,21 @@ const dom = (() =>{
 
         // Create a date element for the task
         const taskDate = document.createElement('p');
-        taskDate.textContent = task.dueDate;
+        
+        const parsedDueDate = parseISO(task.dueDate); // parse the due date string to a Date object
+
+        const isOverdue = isPast(parsedDueDate); // check if the due date is in the past
+      
+      
+        let relativeDueDate;
+      
+        if (isOverdue) {
+          relativeDueDate = 'This task is overdue!';
+        } else {
+          relativeDueDate = 'Due ' + formatDistance(parsedDueDate, new Date(), { addSuffix: true });
+        }
+
+        taskDate.textContent = relativeDueDate;
         taskDate.classList.add('task-date');
 
         // Create a priority element for the task
