@@ -3,6 +3,7 @@ import editIcon from "../images/edit.png"
 import deleteIcon from "../images/delete.png";
 import task from "./task";
 import listeners from "./listeners";
+import BackgroundImg from "../images/todo.jpg"
 import { isPast, parseISO, formatDistance } from 'date-fns';
 const dom = (() =>{
 
@@ -12,6 +13,26 @@ const dom = (() =>{
         contentContainer.classList.add('content');
         const headerContainer = document.createElement('div');
         headerContainer.classList.add('header');
+        const projectImage = document.createElement('div');
+        const projectsTitle = document.createElement('h2');
+        const tasksTitle = document.createElement('h2');
+
+      
+        const beforeDiv = document.createElement('div');
+        beforeDiv.classList.add('menutitle-background');
+        beforeDiv.style.backgroundImage = `url(${BackgroundImg})`;
+      
+        // insert the before element as the first child of menutitle
+        headerContainer.insertBefore(beforeDiv, projectImage.firstChild);
+
+        projectsTitle.classList.add('projects-title');
+        tasksTitle.classList.add('tasks-title');
+        projectsTitle.textContent = 'Projects';
+        tasksTitle.textContent = 'Tasks';
+        headerContainer.appendChild(projectsTitle);
+        headerContainer.appendChild(tasksTitle);
+        headerContainer.appendChild(projectImage);
+        
         const projectsContainer = document.createElement('div');
         projectsContainer.classList.add('projects');
         const addProject = document.createElement('div');

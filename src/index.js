@@ -5,8 +5,7 @@ import dom from "./modules/dom";
 import listeners from "./modules/listeners";
 
 
-project.addProject('Final Exam', 'I have to revise 10 chapters');
-task.addTask('Collect Materials', 'Go through journal papers and find notes', '14/04/2023', 'important', 2);
+
 
 
 

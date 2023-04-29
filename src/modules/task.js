@@ -1,5 +1,6 @@
 import project from "./project";
 import dom from "./dom";
+import storage from "./storage";
 import { isPast, parseISO, formatDistance } from 'date-fns';
 
 const task = (() => {
@@ -20,6 +21,8 @@ const task = (() => {
         const task = new Task(title, description, dueDate, priority, projectIndex);
         project.projectList[projectIndex].tasks.push(task);
         // dom.showProjects();
+        storage.saveProjects();
+
     
     }
 
@@ -34,25 +37,10 @@ function getTaskData(event) {
   let dueDate = new Date(document.getElementById('task-date').value).toISOString();
   let priority = document.getElementById('task-priority').value;
 
-  const parsedDueDate = parseISO(dueDate); // parse the due date string to a Date object
-
-  const isOverdue = isPast(parsedDueDate); // check if the due date is in the past
-
-
-  let relativeDueDate;
-
-  if (isOverdue) {
-    relativeDueDate = 'This task is overdue!';
-  } else {
-    relativeDueDate = 'Due ' + formatDistance(parsedDueDate, new Date(), { addSuffix: true });
-  }
-
-  // Format the dueDate as a relative time string using formatDistance
   
-  console.log(relativeDueDate);
 
   form.reset();
-  addTask(title, description, relativeDueDate, priority, dom.currentProject);
+  addTask(title, description, dueDate, priority, dom.currentProject);
   console.log(project.projectList);
   dom.showProjectTasks(dom.currentProject);
   return false;
@@ -69,22 +57,11 @@ function getTaskData(event) {
       let priority = document.getElementById('edittask-priority').value;
       let index = document.getElementById('task-id').value;
 
-      const parsedDueDate = parseISO(dueDate); // parse the due date string to a Date object
-
-      const isOverdue = isPast(parsedDueDate); // check if the due date is in the past
-    
-    
-      let relativeDueDate;
-    
-      if (isOverdue) {
-        relativeDueDate = 'This task is overdue!';
-      } else {
-        relativeDueDate = 'Due ' + formatDistance(parsedDueDate, new Date(), { addSuffix: true });
-      }
+      
     
 
       form.reset();
-      editTask(title,description, relativeDueDate, priority, index);
+      editTask(title,description, dueDate, priority, index);
       console.log(project.projectList);
       dom.showProjectTasks(dom.currentProject);
       return false;
@@ -96,6 +73,8 @@ function getTaskData(event) {
           project.projectList[projectIndex].tasks.splice(index, 1);
         }
         dom.showProjectTasks(dom.currentProject);
+        storage.saveProjects();
+
       }
     
       function editTask(title,description, dueDate, priority, index){
@@ -104,6 +83,8 @@ function getTaskData(event) {
         project.projectList[dom.currentProject].tasks[index].dueDate = dueDate;
         project.projectList[dom.currentProject].tasks[index].priority = priority;
         console.log(project.projectList[dom.currentProject].tasks[index]);
+        storage.saveProjects();
+
     
       }
 
